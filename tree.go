@@ -30,8 +30,8 @@ func (p *AppCloudPlugin) ViewTree(c plugin.CliConnection) error {
 
 	fmt.Print(greenBold("OK\n\n"))
 
-	backups := oRes.Resources
-	if len(backups) == 0 {
+	orgs := oRes.Resources
+	if len(orgs) == 0 {
 		fmt.Println("No organizations found")
 		return nil
 	}
@@ -43,18 +43,18 @@ func (p *AppCloudPlugin) ViewTree(c plugin.CliConnection) error {
 
 func TreeOutput(oRes OrgResponse) {
 
-	output := "Org Tree\n"
+	output := bold("Org Tree\n")
 	output += bold("Organisations\n")
 
 	for i := 0; i < oRes.TotalResults; i++ {
 
-		if i + 1 == oRes.TotalResults{
+		if i + 1 == oRes.TotalResults {
 			output += "└"
 		} else {
-			output += "│"
+			output += "├"
 		}
 
-		output += fmt.Sprintf("── %s\n", cyanBold(oRes.Resources[i].Name))
+		output += fmt.Sprintf("─ %s\n", italics(oRes.Resources[i].Name))
 
 		if len(oRes.Resources[i].Spaces) > 0 {
 			output += bold("    Spaces\n")
@@ -63,36 +63,36 @@ func TreeOutput(oRes OrgResponse) {
 				if j + 1 == len(oRes.Resources[i].Spaces) {
 					output += "│   └"
 				} else {
-					output += "│   │"
+					output += "│   ├"
 				}
 
-				output += fmt.Sprintf("── %s\n", greenBold(oRes.Resources[i].Spaces[j].Name))
+				output += fmt.Sprintf("─ %s\n", italics(oRes.Resources[i].Spaces[j].Name))
 
 				if len(oRes.Resources[i].Spaces[j].Applications) > 0 {
-					output += bold("|   |   Applications\n")
+					output += bold("        Applications\n")
 					for k := 0; k < len(oRes.Resources[i].Spaces[j].Applications); k++ {
 
 						if k + 1 == len(oRes.Resources[i].Spaces[j].Applications) {
 							output += "│   │   └"
 						} else {
-							output += "│   │   │"
+							output += "│   │   ├"
 						}
 
-						output += fmt.Sprintf("── %s\n", blueBold(oRes.Resources[i].Spaces[j].Applications[k].Name))
+						output += fmt.Sprintf("─ %s\n", italics(oRes.Resources[i].Spaces[j].Applications[k].Name))
 					}
 				}
 
 				if len(oRes.Resources[i].Spaces[j].ServiceInstances) > 0 {
-					output += bold("|   |   Services\n")
+					output += bold("        Services\n")
 					for l := 0; l < len(oRes.Resources[i].Spaces[j].ServiceInstances); l++ {
 
 						if l + 1 == len(oRes.Resources[i].Spaces[j].ServiceInstances) {
 							output += "│   │   └"
 						} else {
-							output += "│   │   │"
+							output += "│   │   ├"
 						}
 
-						output += fmt.Sprintf("── %s\n", yellowBold(oRes.Resources[i].Spaces[j].ServiceInstances[l].Name))
+						output += fmt.Sprintf("─ %s\n", italics(oRes.Resources[i].Spaces[j].ServiceInstances[l].Name))
 					}
 				}
 			}
