@@ -54,7 +54,7 @@ func TreeOutput(oRes OrgResponse) {
 			output += "├"
 		}
 
-		output += fmt.Sprintf("─ %s\n", italics(oRes.Resources[i].Name))
+		output += fmt.Sprintf("─ %s\n", oRes.Resources[i].Name)
 
 		if len(oRes.Resources[i].Spaces) > 0 {
 			output += bold("    Spaces\n")
@@ -66,7 +66,7 @@ func TreeOutput(oRes OrgResponse) {
 					output += "│   ├"
 				}
 
-				output += fmt.Sprintf("─ %s\n", italics(oRes.Resources[i].Spaces[j].Name))
+				output += fmt.Sprintf("─ %s\n", oRes.Resources[i].Spaces[j].Name)
 
 				if len(oRes.Resources[i].Spaces[j].Applications) > 0 {
 					output += bold("        Applications\n")
@@ -78,7 +78,7 @@ func TreeOutput(oRes OrgResponse) {
 							output += "│   │   ├"
 						}
 
-						output += fmt.Sprintf("─ %s\n", italics(oRes.Resources[i].Spaces[j].Applications[k].Name))
+						output += fmt.Sprintf("─ %s\n", oRes.Resources[i].Spaces[j].Applications[k].Name)
 					}
 				}
 
@@ -92,7 +92,7 @@ func TreeOutput(oRes OrgResponse) {
 							output += "│   │   ├"
 						}
 
-						output += fmt.Sprintf("─ %s\n", italics(oRes.Resources[i].Spaces[j].ServiceInstances[l].Name))
+						output += fmt.Sprintf("─ %s\n", oRes.Resources[i].Spaces[j].ServiceInstances[l].Name)
 					}
 				}
 			}
